@@ -5,7 +5,8 @@ import { getNewAccessToken, logout } from "@/src/services/auth.service";
 import { getBaseUrl } from "@/src/config/envConfig";
 import { IGenericErrorResponse, ResponseSuccessType } from "@/src/types";
 import { authKey } from "@/src/constants/auth/storageKey";
-import { getFromLocalStorage, setToLocalStorage } from "@/src/utils/local-storage";
+import { setToLocalStorage } from "@/src/utils/local-storage";
+import { getClientAccessToken } from "@/src/utils/getClientAccessToken";
 
 const instance = axios.create({
   baseURL: getBaseUrl(),
@@ -21,7 +22,9 @@ instance.interceptors.request.use(
   function (config) {
     // Skip adding Authorization header for login endpoint
     if (!config.url?.includes("/auth/login")) {
-      const accessToken = getFromLocalStorage(authKey);
+      // const accessToken = getFromLocalStorage(authKey);
+      const accessToken = getClientAccessToken();
+      console.log(accessToken)
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
       }

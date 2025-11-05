@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { IGenericErrorResponse } from "@/types";
-import { postService } from "@/services/auth";
+import { IGenericErrorResponse } from "../types";
+import { postService } from "../services/auth";
+
 
 export const usePost = <T>(endpoint: string, onSuccess?: (data: T) => void) => {
     return useMutation({
